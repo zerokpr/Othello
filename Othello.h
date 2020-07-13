@@ -6,7 +6,8 @@ class Texture;
 class Othello
 {
 public:
-	//Othello(class Game* game, class InputSystem* inputsystem){}
+	Othello(){
+	};
 
 	enum PieceColor{
 		eBlack, // 先行
@@ -18,7 +19,7 @@ public:
 		eAI
 	};
 
-	void Init(); // 画像など全体初期化, Game全体の初期化で呼ばれる
+	void Init(Game* game); // 画像など全体初期化, Game全体の初期化で呼ばれる
 	void TextureInit();    // 画像初期化
 	void ScreenTextInit(); // 表示
 

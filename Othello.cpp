@@ -3,7 +3,8 @@
 #include"Texture.h"
 
 
-void Othello::Init(){
+void Othello::Init(Game* game){
+	mGame = game;
 
 	mIsClicked = false; // ƒtƒ‰ƒO‰Šú‰»
 
