@@ -7,7 +7,7 @@
 #include"Texture.h"
 #include"StartMenuScreen.h"
 #include"PlayingScreen.h"
-//#include"PausedMenuScreen.h"
+#include"PausedMenuScreen.h"
 //#include"ResultMenuScreen.h"
 #include<unordered_map>
 #include<vector>
@@ -16,7 +16,6 @@
 
 // ゲーム全体の管理をする
 // 各種データの削除の責任を持つ
-class Othello;
 class Game {
 public:
 
@@ -25,7 +24,7 @@ public:
 	void MainLoop();	// ゲームのメインループ
 	void Shutdown();	// ゲーム終了処理
 
-	Game(); // 
+	Game() {}
 	~Game() {} // デストラクタ
 
 	enum GameMode {
@@ -47,7 +46,7 @@ public:
 	void GenerateOutput(); // 各種出力
 
 	// 入力管理
-	class InputSystem mInputSystem;
+	InputSystem mInputSystem;
 
 	// オセロの状態保持
 	Othello mOthello;
@@ -55,7 +54,7 @@ public:
 	// モード毎の画面表示
 	StartMenuScreen mStartMenu;
 	PlayingScreen mPlaying;
-	// PausedMenuScreen mPaused;
+	PausedMenuScreen mPaused;
 	// ResultMenuScreen mResultMenu;
 
 	// 音響管理
@@ -88,4 +87,5 @@ private:
 
 	// ゲームを続行するか
 	bool mIsRunning;
+
 };

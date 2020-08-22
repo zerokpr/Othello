@@ -3,7 +3,7 @@
 #include"ScreenText.h"
 #include"Texture.h"
 #include "UIScreen.h"
-#include "Game.h"
+#include"Game.h"
 #include"StartMenuScreen.h"
 
 StartMenuScreen::StartMenuScreen(){
@@ -57,12 +57,12 @@ void StartMenuScreen::ButtonInit() {
 		"Firstmove", 
 		[this]() {
 			if (mStartMenuMode == StartMenuScreen::eFirstPlayerSelect) {
-				mGame->mOthello.BoardInit(Othello::eBlack);
+				//mGame->mOthello.BoardInit(Othello::eBlack);
 				mGame->SetGameMode(Game::ePlaying);
 				GetButton("Game Start")->Activate(true);
 				GetButton("Firstmove")->Activate(false);
 				GetButton("Passivemove")->Activate(false);
-				mStartMenuMode = StartMenuScreen::eStartMenu;// test
+				mStartMenuMode = StartMenuScreen::eStartMenu; // test
 			}
 		},
 		{300,100}, {80,40},	// サイズ未定義
@@ -75,7 +75,7 @@ void StartMenuScreen::ButtonInit() {
 		"Passivemove",
 		[this]() {
 			if (mStartMenuMode == StartMenuScreen::eFirstPlayerSelect) {
-				mGame->mOthello.BoardInit(Othello::eWhite);
+				//mGame->mOthello.BoardInit(Othello::eWhite);
 				mGame->SetGameMode(Game::ePlaying);
 				GetButton("Game Start")->Activate(true);
 				GetButton("Firstmove")->Activate(false);

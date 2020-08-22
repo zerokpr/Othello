@@ -30,7 +30,7 @@ void PlayingScreen::ButtonInit() {
 	AddButton(
 		"Pause",
 		[this]() {
-			mGame->SetGameMode(Game::eStartMenu); // テスト中の為スタート画面に戻る
+			mGame->SetGameMode(Game::ePaused);
 		},
 		{500,400}, {100,30},
 		mGame->GetTexture("NormalButton"), mGame->GetTexture("HighlightedButton"),

@@ -3,6 +3,7 @@
 #include<unordered_map>
 #include<string>
 #include"Vector.h"
+#include"ScreenText.h"
 
 // ‘O•ûéŒ¾
 class InputSystem;

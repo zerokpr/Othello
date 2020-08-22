@@ -1,9 +1,5 @@
 #include "Game.h"
 
-Game::Game(){
-
-}
-
 bool Game::Initialize() {
 
 	if (DxLib_Init() == -1) { // DxLib初期化処理
@@ -31,11 +27,11 @@ bool Game::Initialize() {
 	// UIScreen初期化
 	mStartMenu.Init(this);
 	mPlaying.Init(this);
-	// mPaused = PausedMenuScreen(this, &mInputSystem);				// 未実装
-	// mResultMenu = ResultMenuScreen(this, &mInputSystem);			// 未実装
+	mPaused.Init(this);
+	// mResultMenu.init(this);			// 未実装
 
 	// Othello初期化
-	// mOthello.Init();
+	mOthello.Init(this);
 
 	return true;
 }
@@ -47,7 +43,7 @@ void Game::LoadData() {
 	/* 背景画像 */
 	AddTexture("StartMenuBG", "ScreenBG.jpg"); // スタートメニュー背景
 	AddTexture("PlayingBG", "ScreenBG.jpg");   // プレイ背景
-	// ポーズメニュー背景
+	AddTexture("PauseMenuBG", "ScreenBG.jpg"); // ポーズメニュー背景
 	// リザルトメニュー背景
 
 	// フォントデータ読み込み
@@ -89,10 +85,10 @@ void Game::ProcessInput() {
 		mStartMenu.ProcessInput();
 		break;
 	case ePlaying:
-		mPlaying.ProcessInput();	// 未実装
+		mPlaying.ProcessInput();
 		break;
 	case ePaused:
-		//mPaused.ProcessInput();		// 未実装
+		mPaused.ProcessInput();		// 未実装
 		break;
 	case eResultMenu:
 		//mResultMenu.ProcessInput(); // 未実装
@@ -108,14 +104,14 @@ void Game::GameUpdate() {
 
 	switch (mGameMode) {
 	case eStartMenu:
-		mStartMenu.Update(); // 未実装
+		mStartMenu.Update();
 		break;
 	case ePlaying:
 		//mOthello.Update(); // ゲームモード実装するなら
 		mPlaying.Update(); // 未実装 
 		break;
 	case ePaused:
-	//	mPaused.Update(); // 未実装
+		mPaused.Update(); // 未実装
 		break;
 	case eResultMenu:
 		//mResultMenu.Update(); // 未実装
@@ -141,10 +137,10 @@ void Game::GenerateOutput() {
 		break;
 	case ePlaying:
 		mPlaying.Draw();
-		//mOthello.Draw();
+		mOthello.Draw();
 		break;
 	case ePaused:
-		// mPaused.Draw();
+		mPaused.Draw();
 		break;
 	case eResultMenu:
 		// mResultMenu.Draw();
@@ -179,6 +175,7 @@ Font* Game::AddFont(const std::string& fontName, int size) {
 	} else {					   // ロードしてなかった場合
 		Font* font = new Font(fontName);
 		if (font->Load(fontName, size) == false) { // フォントロード失敗
+			printfDx("フォント名 %s のロードに失敗しました\n", fontName.c_str());
 			QuitGame();
 			return nullptr;
 		}
@@ -191,7 +188,7 @@ Font* Game::AddFont(const std::string& fontName, int size) {
 
 void Game::AddTexture(const std::string& texName, const std::string& fileName) {
 	if (mTextures.find(texName) != mTextures.end()){
-		printfDx("テクスチャ名 %s は既に存在します\n", texName);
+		printfDx("テクスチャ名 %s は既に存在します\n", texName.c_str());
 	} else {
 		Texture* tex = new Texture(texName);
 		if(tex->Load(fileName) == false) {
@@ -206,7 +203,7 @@ Texture* Game::GetTexture(const std::string& texName) {
 	if (iter != mTextures.end()) {
 		return iter->second;
 	}else {
-		printfDx("テクスチャ名 %s は存在しません\n", texName);
+		printfDx("テクスチャ名 %s は存在しません\n", texName.c_str());
 		QuitGame();
 		return nullptr;
 	}

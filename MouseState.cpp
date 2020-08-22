@@ -18,6 +18,9 @@ void MouseState::Polling() {
 	if (mPrevOnPressed && !mCurrOnPressed) {
 		mWasClicked = true;
 	}
+	if (!mPrevOnPressed && !mCurrOnPressed) {
+		mWasClicked = false;
+	}
 
 	// 前フレーム状態更新
 	mPrevOnPressed = mCurrOnPressed;

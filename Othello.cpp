@@ -2,27 +2,38 @@
 #include "Othello.h"
 #include"Texture.h"
 
-
 void Othello::Init(Game* game){
+
 	mGame = game;
+	mInputSystem = &(game->mInputSystem);
 
 	mIsClicked = false; // フラグ初期化
+
+	LoadData(); // 画像をGameクラスへ読み込む
 
 	TextureInit();  // 画像初期化
 	
 	ScreenTextInit(); // 表示テキストなど初期化
 	
+	DimensionInit(mGame->mScreenSizeX*0.1, mGame->mScreenSizeY*0.1, 500, 500); // 寸法初期化
+
+}
+
+void Othello::LoadData() {
+	mGame->AddTexture("OthelloBG", "OthelloBG.jpg");
 }
 
 void Othello::TextureInit() {
 	// 背景画像
-	BGTex = mGame->GetTexture("OthelloBG.jpg");
+	BGTex = mGame->GetTexture("OthelloBG");
 
 	// 黒
-	BlackTex = mGame->GetTexture("OthelloBlack.jpg");
+	BlackTex = NULL;
+	//BlackTex = mGame->GetTexture("OthelloBlack");
 
 	// 白
-	WhiteTex = mGame->GetTexture("OthelloWhite.jpg");
+	WhiteTex = NULL;
+	//WhiteTex = mGame->GetTexture("OthelloWhite");
 
 }
 
@@ -31,6 +42,11 @@ void Othello::ScreenTextInit() {
 	
 	// 手番表示
 
+}
+
+void Othello::DimensionInit(int posx, int posy, int sizex, int sizey) {
+	mPos = Vector2(posx, posy);
+	mSize = Vector2(sizex, sizey);
 }
 
 void Othello::BoardInit(enum Othello::PieceColor playerColor) {
@@ -47,6 +63,7 @@ void Othello::BoardInit(enum Othello::PieceColor playerColor) {
 void Othello::ProcessInput() {
 	
 	// クリック処理
+	
 
 }
 
@@ -74,6 +91,7 @@ void Othello::DrawTexture() {
 	// 背景
 	BGTex->Draw(mPos.x, mPos.y, mSize.x, mSize.y);
 	
+	/*
 	// 駒
 	for (int i = 0; i < 8; ++i) {
 		for (int j = 0; j < 8; ++j) {
@@ -85,6 +103,7 @@ void Othello::DrawTexture() {
 			}
 		}
 	}
+	*/
 }
 
 void Othello::DrawScreenText() {

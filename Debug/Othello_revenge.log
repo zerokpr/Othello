@@ -1,0 +1,5 @@
+﻿  MouseState.cpp
+C:\Users\NEC-PCuser\Desktop\GitHub\Othello\MouseState.cpp(41): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
+  UIScreen.cpp
+  コードを生成中...
+  Othello_revenge.vcxproj -> C:\Users\NEC-PCuser\Desktop\GitHub\Othello\Debug\Othello_revenge.exe
