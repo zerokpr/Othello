@@ -1,5 +1,9 @@
-﻿  MouseState.cpp
-C:\Users\NEC-PCuser\Desktop\GitHub\Othello\MouseState.cpp(41): warning C4244: '引数': 'double' から 'float' への変換です。データが失われる可能性があります。
-  UIScreen.cpp
-  コードを生成中...
+﻿  Othello.cpp
+C:\Users\NEC-PCuser\Desktop\GitHub\Othello\Othello.cpp(18): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\NEC-PCuser\Desktop\GitHub\Othello\Othello.cpp(53): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\NEC-PCuser\Desktop\GitHub\Othello\Othello.cpp(54): warning C4244: '引数': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\NEC-PCuser\Desktop\GitHub\Othello\Othello.cpp(141): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\NEC-PCuser\Desktop\GitHub\Othello\Othello.cpp(164): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\NEC-PCuser\Desktop\GitHub\Othello\Othello.cpp(170): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\NEC-PCuser\Desktop\GitHub\Othello\Othello.cpp(173): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
   Othello_revenge.vcxproj -> C:\Users\NEC-PCuser\Desktop\GitHub\Othello\Debug\Othello_revenge.exe

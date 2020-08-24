@@ -76,15 +76,16 @@ void Game::Shutdown() {
 void Game::ProcessInput() {
 
 	/* イベント発生監視 */
-	// クリックイベント
+	// 入力ポーリング
 	mInputSystem.Polling();
 
-	/* 各オブジェクトに伝達 */
+	/* 各オブジェクトがイベント取得 */
 	switch (mGameMode) {
 	case eStartMenu:
 		mStartMenu.ProcessInput();
 		break;
 	case ePlaying:
+		mOthello.ProcessInput();
 		mPlaying.ProcessInput();
 		break;
 	case ePaused:
@@ -107,8 +108,8 @@ void Game::GameUpdate() {
 		mStartMenu.Update();
 		break;
 	case ePlaying:
-		//mOthello.Update(); // ゲームモード実装するなら
-		mPlaying.Update(); // 未実装 
+		mOthello.Update();
+		mPlaying.Update();
 		break;
 	case ePaused:
 		mPaused.Update(); // 未実装

@@ -1,17 +1,20 @@
 #pragma once
 #include "Vector.h"
+#include "OthelloAI.h"
 
 class Game;
-class InputSytem;
+class InputSystem;
 class Texture;
 class Othello
 {
+	friend OthelloAI;
 public:
 
 	Othello():mPos(0,0), mSize(0,0){}
 	enum PieceColor{
-		eBlack, // 先行
-		eWhite  // 後攻
+		eNone = -1, // 何もない状態
+		eBlack = 0, // 先行
+		eWhite = 1// 後攻
 	};
 
 	enum Player{
@@ -20,6 +23,7 @@ public:
 	};
 
 	void Init(Game* game); // 画像など全体初期化, Game全体の初期化で呼ばれる
+	void FlagInit();		// 各種フラグ初期化
 	void TextureInit();    // 画像初期化
 	void ScreenTextInit(); // 表示
 
@@ -40,16 +44,29 @@ public:
 	void DrawTexture();		// 画像描画
 	void DrawScreenText();  // 文字列描画
 
+
+
+
+
 private:
 	// [y][x]
-	int mBoard[8][8]; // 盤面状態 0:駒なし 1,2:各プレイヤーの駒がある
-	enum Player mNowPlayer; // 現在の手番(1: プレイヤー, 2: CP)
+	int mBoard[8][8]; // 盤面状態 -1:駒なし 0,1:s各プレイヤーの駒がある.
+	enum Player mNowPlayer; // 現在の手番
 	enum PieceColor mPlayerColor; // プレイヤーの色
+	enum PieceColor mAIColor; // AIの色
 	
-	bool Play(int y, int x, bool isThink) { return true; } // 手を打つ
+	int mPlayPointX, mPlayPointY; // 打たれた手の位置
+	void CalcPoint(const Vector2 &pt); // クリック位置をマスの座標に変換
+	
+	void ChangeTurn();
 	bool CheckGameEnd() { return true; } // ゲームが終わったかをチェック
-
+	bool ContainsPoint(const Vector2 &pt); // ptが座標がボードに含まれるか
 	bool mIsClicked; // ボードがクリックされたか
+	int Play(int x, int y, int player, bool isThink); // 手を打つ
+	bool needPass(int board[8][8], int player);
+
+	// AI
+	OthelloAI mOthelloAI;
 
 	// 画像
 	Texture* BGTex;

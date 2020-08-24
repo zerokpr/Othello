@@ -3,6 +3,7 @@
 
 // プレイ画面の内、オセロ盤以外の機能
 // 
+class Othello;
 class PlayingScreen : public UIScreen
 {
 public:
@@ -16,5 +17,5 @@ public:
 	// virtual void Draw();
 
 private:
-
+	Othello* mOthello;
 };

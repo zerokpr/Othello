@@ -28,7 +28,7 @@ void UIScreen::ProcessInput() {
 
 void UIScreen::ButtonProcessInput(void) {
 	for (auto b : mButtons) {
-		if (b.second->ContainsPoint(mInputSystem->mMouseState.MousePos())) {
+		if (b.second->ContainsPoint(mInputSystem->mMouseState.MousePos())) { // カーソルポインタがボタンの上にある
 			// ハイライト（実装するかは未確定）
 			b.second->SetHighlight(true);
 			// ハイライトを実装するなら、
@@ -36,8 +36,11 @@ void UIScreen::ButtonProcessInput(void) {
 
 			if (mInputSystem->mMouseState.wasClicked()) { // クリックされているとき
 				b.second->OnClick(); // 無効なボタンについては呼び出しても何も起こらないようにボタン側で対処
-				mInputSystem->mMouseState.ClickEventEnd();
+				mInputSystem->mMouseState.ClickEventEnd(); // クリックイベントをここで終了させる。
 			}
+		}
+		else {
+			b.second->SetHighlight(false);
 		}
 	}
 }

@@ -2,10 +2,12 @@
 #include "Vector.h"
 
 bool Button::ContainsPoint(const Vector2& pt){
-	return (pt.x >= mPosition.x &&
+	return (
+		pt.x >= mPosition.x &&
 		pt.x < (mPosition.x + mSize.x) &&
 		pt.y >= mPosition.y &&
-		pt.y < (mPosition.y + mSize.y));
+		pt.y < (mPosition.y + mSize.y)
+	);
 }
 
 void Button::OnClick() {

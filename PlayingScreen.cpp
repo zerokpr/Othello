@@ -32,7 +32,7 @@ void PlayingScreen::ButtonInit() {
 		[this]() {
 			mGame->SetGameMode(Game::ePaused);
 		},
-		{500,400}, {100,30},
+		{ 540, 450 }, { 240, 40 },
 		mGame->GetTexture("NormalButton"), mGame->GetTexture("HighlightedButton"),
 		true
 	);
