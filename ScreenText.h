@@ -9,17 +9,20 @@ class ScreenText
 {
 public:
 	ScreenText(
-		const std::string& text,	// テキスト内容
+		const std::string text,	// テキスト内容
 		Vector2 pos,				// 描画場所
 		int pointSize,				// テキストの文字サイズ
 		Vector3 color,				// 描画色
 		Font* font					// フォントへのポインタ
-	): mText(text), mPos(pos), mPointSize(pointSize), mColor(color), mFont(font){}
+	): mText(text), mPos(pos), mPointSize(pointSize), mColor(color), mFont(font), mIsActivated(true){}
 	~ScreenText(){}
+
+	// 文字列の変更
+	void ChangeText(const std::string text);
 
 	// 文字列を描画
 	void Draw(void);
-
+	
 private:
 	std::string mText; // 描画テキスト
 	int mPointSize;    // 描画ポイント

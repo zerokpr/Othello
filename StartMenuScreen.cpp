@@ -89,16 +89,16 @@ void StartMenuScreen::ButtonInit() {
 		false
 	);
 
-	/*
 	AddButton(
 		"Exit",
 		[this]() {
+			mGame->QuitGame();
 		},
+		{ 540, 450 }, { 240, 40 }
 		,
-		mGame->GetTexture("NormalButton"), mGame->GetTexture("NormalButton"),
-		false
+		mGame->GetTexture("NormalButton"), mGame->GetTexture("HighlightedButton"),
+		true
 	);
-	*/
 }
 
 void StartMenuScreen::ScreenTextInit() {

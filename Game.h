@@ -8,7 +8,7 @@
 #include"StartMenuScreen.h"
 #include"PlayingScreen.h"
 #include"PausedMenuScreen.h"
-//#include"ResultMenuScreen.h"
+#include"ResultMenuScreen.h"
 #include<unordered_map>
 #include<vector>
 #include<string>
@@ -55,7 +55,7 @@ public:
 	StartMenuScreen mStartMenu;
 	PlayingScreen mPlaying;
 	PausedMenuScreen mPaused;
-	// ResultMenuScreen mResultMenu;
+	ResultMenuScreen mResultMenu;
 
 	// ‰¹‹¿ŠÇ—
 

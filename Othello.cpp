@@ -25,9 +25,9 @@ void Othello::FlagInit() {
 }
 
 void Othello::LoadData() {
-	mGame->AddTexture("OthelloBG", "OthelloBG.jpg");
-	mGame->AddTexture("BlackPiece", "BlackPiece.jpg");
-	mGame->AddTexture("WhitePiece", "WhitePiece.jpg");
+	mGame->AddTexture("OthelloBG", "./img/OthelloBG.jpg");
+	mGame->AddTexture("BlackPiece", "./img/BlackPiece.jpg");
+	mGame->AddTexture("WhitePiece", "./img/WhitePiece.jpg");
 }
 
 void Othello::TextureInit() {
@@ -57,7 +57,10 @@ void Othello::DimensionInit(int posx, int posy, int sizex, int sizey) {
 // テスト未実施
 void Othello::BoardInit(enum Othello::PieceColor playerColor) {
 	mPlayerColor = playerColor;
-	
+	mBlackPoint = 2;
+	mWhitePoint = 2;
+	mPassCount = 0;
+
 	if (mPlayerColor == eBlack) {
 		mNowPlayer = ePlayer;
 		mAIColor = eWhite;
@@ -114,36 +117,71 @@ void Othello::ChangeTurn() {
 	}
 }
 
-bool Othello::needPass(int board[8][8], int player) {
+bool Othello::CheckPass(int board[8][8], int player) {
+	for (int i = 0; i < 8; ++i) {
+		for (int j = 0; j < 8; ++j) {
+			if (Play(j, i, player, true)) return false;
+		}
+	}
+	return true;
+}
+
+bool Othello::CheckGameEnd() {
+	if (mPassCount >= 2) {
+		mGame->mResultMenu.ResultInput(mBlackPoint, mWhitePoint);
+		return true;
+	}
 	return false;
+}
+
+
+void Othello::ChangePieceNum(int color, int point) {
+	if (color == eBlack) mBlackPoint += point;
+	else mWhitePoint += point;
 }
 
 void Othello::Update() {
 
+	int UpdatePoint = 0;
+
 	// プレイヤーのターン
 	if (mNowPlayer == ePlayer) {
-		if (needPass(mBoard, mNowPlayer)) {
+		if (CheckPass(mBoard, mPlayerColor)) {
+			mPassCount++;
 			ChangeTurn();
 		} else {
 			if (mIsClicked) { // クリックがあった場合
 				if (Play(mPlayPointX, mPlayPointY, mPlayerColor, true)) {
-					Play(mPlayPointX, mPlayPointY, mPlayerColor, false);
+					UpdatePoint = Play(mPlayPointX, mPlayPointY, mPlayerColor, false);
+					ChangePieceNum(mPlayerColor, UpdatePoint+1);
+					ChangePieceNum(mAIColor, -UpdatePoint);
 					mPlayPointX = -1; mPlayPointY = -1;
+					mPassCount = 0;
 					ChangeTurn();
 				}
 			}
 		}
 	}
+
+	UpdatePoint = 0;
 	
 	// AIのターン
 	if (mNowPlayer == eAI) {
 		Vector2 tmp = mOthelloAI.OutPut(mBoard);
 		mPlayPointX = tmp.x; mPlayPointY = tmp.y;
-		Play(mPlayPointX, mPlayPointY, mAIColor, false); // AIがパスだったらここで検知するようにしてもよい.
+		UpdatePoint = Play(mPlayPointX, mPlayPointY, mAIColor, false);
+		if (UpdatePoint) {
+			ChangePieceNum(mAIColor, UpdatePoint+1);
+			ChangePieceNum(mPlayerColor, -UpdatePoint);
+			mPassCount = 0;
+		}
+		else {
+			mPassCount++;
+		}
 		ChangeTurn();
 	}
-
-	// 文字列更新（TODO）
+	// 文字列更新
+	mGame->mPlaying.GetScreenText("OthelloStatus")->ChangeText(std::to_string(mBlackPoint) + " " + std::to_string(mWhitePoint));
 
 	mIsClicked = false;
 }
@@ -158,7 +196,6 @@ void Othello::Draw() {
 	
 }
 
-// テスト未実施
 void Othello::DrawTexture() {
 	// 背景
 	BGTex->Draw(mPos.x, mPos.y, mSize.x, mSize.y);
@@ -177,13 +214,14 @@ void Othello::DrawTexture() {
 }
 
 void Othello::DrawScreenText() {
-
+	if (mPassCount > 0) { // AIがパスをしたとき
+	}
 }
 
 // テスト済み
 int Othello::Play(int x, int y, int player, bool isThink) {
 	if (x < 0 || y < 0) return 0;
-	if (mBoard[y][x] != -1) return 0;
+	if (mBoard[y][x] != eNone) return 0;
 	int cnt = 0; // ひっくり返す駒の数
 	for (int i = -1; i <= 1; ++i) {
 		for (int j = -1; j <= 1; ++j) {

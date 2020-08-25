@@ -1,5 +1,6 @@
 #pragma once
 #include "UIScreen.h"
+
 class PausedMenuScreen : public UIScreen
 {
 public:

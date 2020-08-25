@@ -67,15 +67,13 @@ void UIScreen::DrawTexture() {
 
 void UIScreen::DrawButtons(void) {
 	for (auto b : mButtons) {
-		b.second->Draw(); // 無効なボタン(ry
+		b.second->Draw();
 	}
 }
 
 void UIScreen::DrawScreenText(void) {
-	if (!mScreenTexts.empty()) {
-		for (auto text : mScreenTexts) {
-			text.second->Draw();
-		}
+	for (auto text : mScreenTexts) {
+		text.second->Draw();
 	}
 }
 
@@ -133,11 +131,11 @@ void UIScreen::AddScreenText(
 	Vector2 pos,				// 描画場所
 	int pointSize,				// テキストの文字サイズ
 	Vector3 color,				// 描画色
-	Font* font = nullptr		// フォントへのポインタ
+	Font* font					// フォントへのポインタ
 ) {
-	if (mScreenTexts.find(textName) == mScreenTexts.end()) return;
-	if (font == nullptr) font = mFont;
-	ScreenText * Text = new ScreenText(
+	if (mScreenTexts.find(textName) != mScreenTexts.end()) return;
+	if (font == nullptr) font = mFont; // nullならUIScreenのデフォルトのポインタ
+	ScreenText* Text = new ScreenText(
 		text,
 		pos,
 		pointSize,

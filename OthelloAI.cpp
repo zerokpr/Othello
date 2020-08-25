@@ -2,11 +2,6 @@
 #include "OthelloAI.h"
 #include "Vector.h"
 
-int max(int a, int b) {
-	if (a >= b) return a;
-	else return b;
-}
-
 void OthelloAI::Init(Othello* othello, int AIcolor) {
 	mOthello = othello;
 	mColor = AIcolor;

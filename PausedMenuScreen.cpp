@@ -37,6 +37,17 @@ void PausedMenuScreen::ButtonInit() {
 		mGame->GetTexture("NormalButton"), mGame->GetTexture("HighlightedButton"),
 		true
 	);
+
+	AddButton(
+		"Exit",
+		[this]() {
+			mGame->QuitGame();
+		},
+		{ 540, 500 }, { 240, 40 }
+		,
+		mGame->GetTexture("NormalButton"), mGame->GetTexture("HighlightedButton"),
+		true
+	);
 }
 
 void PausedMenuScreen::TextureInit() {

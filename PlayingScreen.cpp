@@ -24,6 +24,23 @@ void PlayingScreen::FontInit() {
 }
 
 void PlayingScreen::ScreenTextInit() {
+	/* 形勢表示 */
+	// 黒白表示
+	AddScreenText(
+		"BlackWhite",
+		"Black : White",
+		{ 540, 50 },
+		20,
+		{ 0, 0, 0 }
+	);
+	// 数値
+	AddScreenText(
+		"OthelloStatus",
+		"",
+		{ 540, 150 },
+		20,
+		{ 0, 0, 0 }
+	);
 }
 
 void PlayingScreen::ButtonInit() {

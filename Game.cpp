@@ -28,7 +28,7 @@ bool Game::Initialize() {
 	mStartMenu.Init(this);
 	mPlaying.Init(this);
 	mPaused.Init(this);
-	// mResultMenu.init(this);			// 未実装
+	mResultMenu.Init(this);
 
 	// Othello初期化
 	mOthello.Init(this);
@@ -38,12 +38,13 @@ bool Game::Initialize() {
 
 void Game::LoadData() {
 	// 画像ファイル読み込み
-	AddTexture("NormalButton", "Button.jpg");	// 通常ボタン
-	AddTexture("HighlightedButton", "Button.jpg");				// ボタンハイライト
+	AddTexture("NormalButton", "./img/Button.jpg");	// 通常ボタン
+	AddTexture("HighlightedButton", "./img/Button.jpg");				// ボタンハイライト
 	/* 背景画像 */
-	AddTexture("StartMenuBG", "ScreenBG.jpg"); // スタートメニュー背景
-	AddTexture("PlayingBG", "ScreenBG.jpg");   // プレイ背景
-	AddTexture("PauseMenuBG", "ScreenBG.jpg"); // ポーズメニュー背景
+	AddTexture("StartMenuBG", "./img/ScreenBG.jpg"); // スタートメニュー背景
+	AddTexture("PlayingBG", "./img/ScreenBG.jpg");   // プレイ背景
+	AddTexture("PauseMenuBG", "./img/ScreenBG.jpg"); // ポーズメニュー背景
+	AddTexture("ResultMenuBG", "./img/ScreenBG.jpg"); // リザルト画面拝啓
 	// リザルトメニュー背景
 
 	// フォントデータ読み込み
@@ -56,7 +57,7 @@ void Game::MainLoop() {
 		GameUpdate();
 		GenerateOutput();
 	}
-	WaitTimer(5000);
+	WaitTimer(1000);
 }
 
 void Game::Shutdown() {
@@ -89,10 +90,10 @@ void Game::ProcessInput() {
 		mPlaying.ProcessInput();
 		break;
 	case ePaused:
-		mPaused.ProcessInput();		// 未実装
+		mPaused.ProcessInput();
 		break;
 	case eResultMenu:
-		//mResultMenu.ProcessInput(); // 未実装
+		mResultMenu.ProcessInput();
 		break;
 	default:						// エラー発生
 		mIsRunning = false;
@@ -110,12 +111,15 @@ void Game::GameUpdate() {
 	case ePlaying:
 		mOthello.Update();
 		mPlaying.Update();
+		if (mOthello.CheckGameEnd()) {
+			mGameMode = eResultMenu;
+		}
 		break;
 	case ePaused:
-		mPaused.Update(); // 未実装
+		mPaused.Update();
 		break;
 	case eResultMenu:
-		//mResultMenu.Update(); // 未実装
+		mResultMenu.Update();
 		break;
 	default: // エラー発生
 		mIsRunning = false;
@@ -144,7 +148,7 @@ void Game::GenerateOutput() {
 		mPaused.Draw();
 		break;
 	case eResultMenu:
-		// mResultMenu.Draw();
+		mResultMenu.Draw();
 		break;
 	default: // エラー発生
 		mIsRunning = false;

@@ -64,12 +64,12 @@ public:
 		Vector2 pos,				// 描画場所
 		int pointSize,				// テキストの文字サイズ
 		Vector3 color,				// 描画色
-		class Font* font		// フォントへのポインタ
+		class Font* font = nullptr		// フォントへのポインタ
 	);
+
 	class ScreenText* GetScreenText(const std::string& textName);
 	void DrawScreenText(void); // テキストを描画するヘルパー関数
 
-	// UIScreen(const UIScreen& obj){} // コピー不可
 	void ButtonProcessInput(); // ボタン入力のヘルパ－関数
 	
 };
