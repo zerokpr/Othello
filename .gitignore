@@ -1,4 +1,5 @@
 # visual studioのデバッグフォルダ
-.vs/
-Debug/
-x64/
+
+./.vs/
+./Debug/
+./x64/
